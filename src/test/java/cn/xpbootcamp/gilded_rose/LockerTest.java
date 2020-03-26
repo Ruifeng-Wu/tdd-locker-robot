@@ -1,7 +1,7 @@
 package cn.xpbootcamp.gilded_rose;
 
 import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
-import cn.xpbootcamp.gilded_rose.exception.NotVacancyException;
+import cn.xpbootcamp.gilded_rose.exception.NoVacancyException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ public class LockerTest {
         Locker locker = new Locker(2, 0);
 
         //then
-        Assertions.assertThrows(NotVacancyException.class, () -> locker.save(myPackage));
+        Assertions.assertThrows(NoVacancyException.class, () -> locker.save(myPackage));
     }
 
     @Test
@@ -53,5 +53,27 @@ public class LockerTest {
 
         //then
         Assertions.assertThrows(InValidTicketException.class, ()->locker.fetch(myTicket));
+    }
+
+    @Test
+    void should_throw_exception_when_fetch_given_invalid_ticket() {
+        //given
+        MyPackage myPackage = new MyPackage();
+        Locker locker = new Locker(2, 2);
+        locker.save(myPackage);
+
+        //then
+        Assertions.assertThrows(InValidTicketException.class, ()->locker.fetch(new MyTicket()));
+    }
+
+    @Test
+    void should_ticket_and_throw_exception_when_save_2_package_given_1vacancy_locker() {
+        //given
+        MyPackage myPackage = new MyPackage();
+        Locker locker = new Locker(2, 1);
+        MyTicket myTicket = locker.save(myPackage);
+
+        //then
+        Assertions.assertThrows(NoVacancyException.class, ()->locker.save(new MyPackage()));
     }
 }

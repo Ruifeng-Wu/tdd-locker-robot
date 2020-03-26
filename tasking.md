@@ -9,3 +9,7 @@ given when should
 4.Given 使用过的票据, When 用户重复取件, Then 提示货物已被取走.
 
 5.Given 错误的票据, When 用户取件, Then 提示票据错误.
+
+6.Given 只有一个空位的存储柜，When 用户存2件货物，Then第一件存成功
+
+7.Given 没有空位的存储柜，When 用户取1件货物然后存一件货物，Then返回票据

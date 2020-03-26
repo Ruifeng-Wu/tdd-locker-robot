@@ -2,7 +2,7 @@ package cn.xpbootcamp.gilded_rose;
 
 
 import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
-import cn.xpbootcamp.gilded_rose.exception.NotVacancyException;
+import cn.xpbootcamp.gilded_rose.exception.NoVacancyException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class Locker {
 
     public MyTicket save(MyPackage myPackage) {
         if (vacancy <= 0) {
-            throw new NotVacancyException();
+            throw new NoVacancyException();
         }
         MyTicket myTicket = new MyTicket();
         myPackageList.put(myTicket, myPackage);
