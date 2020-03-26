@@ -35,6 +35,7 @@ public class Locker {
             throw new InValidTicketException();
         }
         MyPackage myPackage = myPackageList.remove(myTicket);
+        vacancy++;
         return myPackage;
     }
 }
