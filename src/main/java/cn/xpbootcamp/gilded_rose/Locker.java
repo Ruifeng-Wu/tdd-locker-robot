@@ -13,6 +13,9 @@ public class Locker {
     }
 
     public MyTicket save(MyPackage myPackage) {
+        if (vacancy<=0){
+            throw new NotVacancyException();
+        }
         return new MyTicket();
     }
 }
