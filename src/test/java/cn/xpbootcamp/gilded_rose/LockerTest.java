@@ -26,4 +26,18 @@ public class LockerTest {
         //then
         Assertions.assertThrows(NotVacancyException.class, () -> locker.save(myPackage));
     }
+
+    @Test
+    void should_package_when_fetch_given_valid_ticket() {
+        //given
+        MyPackage myPackage = new MyPackage();
+        Locker locker = new Locker(2, 2);
+        MyTicket myTicket = locker.save(myPackage);
+
+        //when
+        MyPackage result = locker.fetch(myTicket);
+
+        //then
+        Assertions.assertSame(myPackage, result);
+    }
 }
