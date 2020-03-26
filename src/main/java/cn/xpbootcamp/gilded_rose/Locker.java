@@ -26,6 +26,7 @@ public class Locker {
         }
         MyTicket myTicket = new MyTicket();
         myPackageList.put(myTicket, myPackage);
+        vacancy--;
         return myTicket;
     }
 
