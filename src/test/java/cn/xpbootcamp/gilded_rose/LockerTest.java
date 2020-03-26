@@ -52,7 +52,7 @@ public class LockerTest {
         locker.fetch(myTicket);
 
         //then
-        Assertions.assertThrows(InValidTicketException.class, ()->locker.fetch(myTicket));
+        Assertions.assertThrows(InValidTicketException.class, () -> locker.fetch(myTicket));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class LockerTest {
         locker.save(myPackage);
 
         //then
-        Assertions.assertThrows(InValidTicketException.class, ()->locker.fetch(new MyTicket()));
+        Assertions.assertThrows(InValidTicketException.class, () -> locker.fetch(new MyTicket()));
     }
 
     @Test
@@ -71,9 +71,22 @@ public class LockerTest {
         //given
         MyPackage myPackage = new MyPackage();
         Locker locker = new Locker(2, 1);
-        MyTicket myTicket = locker.save(myPackage);
+        locker.save(myPackage);
 
         //then
-        Assertions.assertThrows(NoVacancyException.class, ()->locker.save(new MyPackage()));
+        Assertions.assertThrows(NoVacancyException.class, () -> locker.save(new MyPackage()));
+    }
+
+    @Test
+    void should_ticket_when_save_package_given_0_vacancy_locker() {
+        //given
+        MyPackage myPackage = new MyPackage();
+        Locker locker = new Locker(2, 1);
+        MyTicket myTicket = locker.save(myPackage);
+        locker.fetch(myTicket);
+        MyTicket result = locker.save(new MyPackage());
+
+        //then
+        Assertions.assertNotNull(result);
     }
 }
