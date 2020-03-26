@@ -2,7 +2,6 @@ package cn.xpbootcamp.gilded_rose;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import sun.security.krb5.internal.Ticket;
 
 public class LockerTest {
 
@@ -12,7 +11,7 @@ public class LockerTest {
         MyPackage myPackage = new MyPackage();
         Locker locker = new Locker(2, 2);
         //when
-        Ticket ticket = locker.save(myPackage);
+        MyTicket ticket = locker.save(myPackage);
 
         //then
         Assertions.assertNotNull(ticket);
