@@ -1,15 +1,17 @@
 package cn.xpbootcamp.gilded_rose;
 
 
-import java.util.ArrayList;
+import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
+import cn.xpbootcamp.gilded_rose.exception.NotVacancyException;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Locker {
     private int capacity;
     private int vacancy;
-    private Map<MyTicket,MyPackage> myPackageList=new HashMap<>();
+    private Map<MyTicket, MyPackage> myPackageList = new HashMap<>();
+
     public Locker() {
     }
 
@@ -19,15 +21,18 @@ public class Locker {
     }
 
     public MyTicket save(MyPackage myPackage) {
-        if (vacancy<=0){
+        if (vacancy <= 0) {
             throw new NotVacancyException();
         }
         MyTicket myTicket = new MyTicket();
-        myPackageList.put(myTicket,myPackage);
+        myPackageList.put(myTicket, myPackage);
         return myTicket;
     }
 
     public MyPackage fetch(MyTicket myTicket) {
+        if (!myPackageList.containsKey(myTicket)) {
+            throw new InValidTicketException();
+        }
         MyPackage myPackage = myPackageList.remove(myTicket);
         return myPackage;
     }

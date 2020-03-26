@@ -1,5 +1,7 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
+import cn.xpbootcamp.gilded_rose.exception.NotVacancyException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -47,10 +49,9 @@ public class LockerTest {
         MyPackage myPackage = new MyPackage();
         Locker locker = new Locker(2, 2);
         MyTicket myTicket = locker.save(myPackage);
-        MyPackage result = locker.fetch(myTicket);
-
+        locker.fetch(myTicket);
 
         //then
-        Assertions.assertThrows(InValidTicket.class, locker.fetch(myTicket));
+        Assertions.assertThrows(InValidTicketException.class, ()->locker.fetch(myTicket));
     }
 }
