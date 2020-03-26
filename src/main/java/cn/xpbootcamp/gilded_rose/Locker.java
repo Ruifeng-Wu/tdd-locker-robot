@@ -1,9 +1,15 @@
 package cn.xpbootcamp.gilded_rose;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Locker {
     private int capacity;
     private int vacancy;
+    private Map<MyTicket,MyPackage> myPackageList=new HashMap<>();
     public Locker() {
     }
 
@@ -16,6 +22,13 @@ public class Locker {
         if (vacancy<=0){
             throw new NotVacancyException();
         }
-        return new MyTicket();
+        MyTicket myTicket = new MyTicket();
+        myPackageList.put(myTicket,myPackage);
+        return myTicket;
+    }
+
+    public MyPackage fetch(MyTicket myTicket) {
+        MyPackage myPackage = myPackageList.remove(myTicket);
+        return myPackage;
     }
 }
