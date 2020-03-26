@@ -16,4 +16,14 @@ public class LockerTest {
         //then
         Assertions.assertNotNull(ticket);
     }
+
+    @Test
+    void should_throw_exception_when_save_given_package_and_vacancy_is_0() {
+        //given
+        MyPackage myPackage = new MyPackage();
+        Locker locker = new Locker(2, 0);
+
+        //then
+        Assertions.assertThrows(NotVacancyException.class, () -> locker.save(myPackage));
+    }
 }
