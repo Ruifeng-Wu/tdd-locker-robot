@@ -40,4 +40,17 @@ public class LockerTest {
         //then
         Assertions.assertSame(myPackage, result);
     }
+
+    @Test
+    void should_throw_exception_when_double_fetch_given_valid_ticket() {
+        //given
+        MyPackage myPackage = new MyPackage();
+        Locker locker = new Locker(2, 2);
+        MyTicket myTicket = locker.save(myPackage);
+        MyPackage result = locker.fetch(myTicket);
+
+
+        //then
+        Assertions.assertThrows(InValidTicket.class, locker.fetch(myTicket));
+    }
 }
