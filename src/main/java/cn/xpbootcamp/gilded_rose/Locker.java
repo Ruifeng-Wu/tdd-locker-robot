@@ -9,33 +9,31 @@ import java.util.Map;
 
 public class Locker {
     private int capacity;
-    private int vacancy;
-    private Map<MyTicket, MyPackage> myPackageList = new HashMap<>();
+    private Map<Ticket, Package> container = new HashMap<>();
 
     public Locker() {
     }
 
-    public Locker(int capacity, int vacancy) {
+    public Locker(int capacity) {
         this.capacity = capacity;
-        this.vacancy = vacancy;
     }
 
-    public MyTicket save(MyPackage myPackage) {
-        if (vacancy <= 0) {
+    public Ticket save(Package aPackage) {
+        if (capacity <= 0) {
             throw new NoVacancyException();
         }
-        MyTicket myTicket = new MyTicket();
-        myPackageList.put(myTicket, myPackage);
-        vacancy--;
-        return myTicket;
+        Ticket ticket = new Ticket();
+        container.put(ticket, aPackage);
+        capacity--;
+        return ticket;
     }
 
-    public MyPackage fetch(MyTicket myTicket) {
-        if (!myPackageList.containsKey(myTicket)) {
+    public Package fetch(Ticket ticket) {
+        if (!container.containsKey(ticket)) {
             throw new InValidTicketException();
         }
-        MyPackage myPackage = myPackageList.remove(myTicket);
-        vacancy++;
-        return myPackage;
+        Package aPackage = container.remove(ticket);
+        capacity++;
+        return aPackage;
     }
 }

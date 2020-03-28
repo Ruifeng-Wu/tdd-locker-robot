@@ -1,4 +1,4 @@
 package cn.xpbootcamp.gilded_rose;
 
-public class MyTicket {
+public class Ticket {
 }

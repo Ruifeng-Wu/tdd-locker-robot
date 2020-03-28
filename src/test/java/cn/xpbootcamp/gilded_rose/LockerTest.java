@@ -10,10 +10,10 @@ public class LockerTest {
     @Test
     void should_return_ticket_when_save_given_package_and_capacity_not_full() {
         //given
-        MyPackage myPackage = new MyPackage();
-        Locker locker = new Locker(2, 2);
+        Package aPackage = new Package();
+        Locker locker = new Locker( 2);
         //when
-        MyTicket ticket = locker.save(myPackage);
+        Ticket ticket = locker.save(aPackage);
 
         //then
         Assertions.assertNotNull(ticket);
@@ -22,70 +22,70 @@ public class LockerTest {
     @Test
     void should_throw_exception_when_save_given_package_and_vacancy_is_0() {
         //given
-        MyPackage myPackage = new MyPackage();
-        Locker locker = new Locker(2, 0);
+        Package aPackage = new Package();
+        Locker locker = new Locker(0);
 
         //then
-        Assertions.assertThrows(NoVacancyException.class, () -> locker.save(myPackage));
+        Assertions.assertThrows(NoVacancyException.class, () -> locker.save(aPackage));
     }
 
     @Test
     void should_package_when_fetch_given_valid_ticket() {
         //given
-        MyPackage myPackage = new MyPackage();
-        Locker locker = new Locker(2, 2);
-        MyTicket myTicket = locker.save(myPackage);
+        Package aPackage = new Package();
+        Locker locker = new Locker(2);
+        Ticket ticket = locker.save(aPackage);
 
         //when
-        MyPackage result = locker.fetch(myTicket);
+        Package result = locker.fetch(ticket);
 
         //then
-        Assertions.assertSame(myPackage, result);
+        Assertions.assertSame(aPackage, result);
     }
 
     @Test
     void should_throw_exception_when_double_fetch_given_valid_ticket() {
         //given
-        MyPackage myPackage = new MyPackage();
-        Locker locker = new Locker(2, 2);
-        MyTicket myTicket = locker.save(myPackage);
-        locker.fetch(myTicket);
+        Package aPackage = new Package();
+        Locker locker = new Locker( 2);
+        Ticket ticket = locker.save(aPackage);
+        locker.fetch(ticket);
 
         //then
-        Assertions.assertThrows(InValidTicketException.class, () -> locker.fetch(myTicket));
+        Assertions.assertThrows(InValidTicketException.class, () -> locker.fetch(ticket));
     }
 
     @Test
     void should_throw_exception_when_fetch_given_invalid_ticket() {
         //given
-        MyPackage myPackage = new MyPackage();
-        Locker locker = new Locker(2, 2);
-        locker.save(myPackage);
+        Package aPackage = new Package();
+        Locker locker = new Locker( 2);
+        locker.save(aPackage);
 
         //then
-        Assertions.assertThrows(InValidTicketException.class, () -> locker.fetch(new MyTicket()));
+        Assertions.assertThrows(InValidTicketException.class, () -> locker.fetch(new Ticket()));
     }
 
     @Test
-    void should_ticket_and_throw_exception_when_save_2_package_given_1vacancy_locker() {
+    void should_ticket_and_throw_exception_when_save_2_package_given_1_vacancy_locker() {
         //given
-        MyPackage myPackage = new MyPackage();
-        Locker locker = new Locker(2, 1);
-        locker.save(myPackage);
+        Package aPackage = new Package();
+        Locker locker = new Locker(1);
+        locker.save(aPackage);
 
         //then
-        Assertions.assertThrows(NoVacancyException.class, () -> locker.save(new MyPackage()));
+        Assertions.assertThrows(NoVacancyException.class, () -> locker.save(new Package()));
     }
+
 
     @Test
     void should_ticket_when_save_package_given_0_vacancy_locker() {
         //given
-        MyPackage myPackage = new MyPackage();
-        Locker locker = new Locker(2, 1);
-        MyTicket myTicket = locker.save(myPackage);
-        locker.fetch(myTicket);
-        MyTicket result = locker.save(new MyPackage());
-
+        Package aPackage = new Package();
+        Locker locker = new Locker( 1);
+        Ticket ticket = locker.save(aPackage);
+        locker.fetch(ticket);
+        Ticket result = locker.save(new Package());
         //then
         Assertions.assertNotNull(result);
     }
