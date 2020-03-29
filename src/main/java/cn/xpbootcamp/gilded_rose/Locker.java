@@ -2,7 +2,7 @@ package cn.xpbootcamp.gilded_rose;
 
 
 import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
-import cn.xpbootcamp.gilded_rose.exception.NoVacancyException;
+import cn.xpbootcamp.gilded_rose.exception.NoCapacityException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ public class Locker {
 
     public Ticket save(Package aPackage) {
         if (capacity <= 0) {
-            throw new NoVacancyException();
+            throw new NoCapacityException();
         }
         Ticket ticket = new Ticket();
         container.put(ticket, aPackage);

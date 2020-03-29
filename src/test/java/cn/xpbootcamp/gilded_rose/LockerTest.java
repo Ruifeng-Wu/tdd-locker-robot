@@ -1,7 +1,7 @@
 package cn.xpbootcamp.gilded_rose;
 
 import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
-import cn.xpbootcamp.gilded_rose.exception.NoVacancyException;
+import cn.xpbootcamp.gilded_rose.exception.NoCapacityException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,13 +20,13 @@ public class LockerTest {
     }
 
     @Test
-    void should_throw_exception_when_save_given_package_and_vacancy_is_0() {
+    void should_throw_exception_when_save_given_package_and_capacity_is_0() {
         //given
         Package aPackage = new Package();
         Locker locker = new Locker(0);
 
         //then
-        Assertions.assertThrows(NoVacancyException.class, () -> locker.save(aPackage));
+        Assertions.assertThrows(NoCapacityException.class, () -> locker.save(aPackage));
     }
 
     @Test
@@ -67,19 +67,19 @@ public class LockerTest {
     }
 
     @Test
-    void should_ticket_and_throw_exception_when_save_2_package_given_1_vacancy_locker() {
+    void should_return_ticket_after_throw_exception_when_save_2_package_given_1_capacity_locker() {
         //given
         Package aPackage = new Package();
         Locker locker = new Locker(1);
         locker.save(aPackage);
 
         //then
-        Assertions.assertThrows(NoVacancyException.class, () -> locker.save(new Package()));
+        Assertions.assertThrows(NoCapacityException.class, () -> locker.save(new Package()));
     }
 
 
     @Test
-    void should_ticket_when_save_package_given_0_vacancy_locker() {
+    void should_return_ticket_when_save_package_given_0_capacity_locker_and_fetch_a_package() {
         //given
         Package aPackage = new Package();
         Locker locker = new Locker( 1);
