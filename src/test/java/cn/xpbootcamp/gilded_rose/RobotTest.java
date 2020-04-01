@@ -57,4 +57,13 @@ public class RobotTest {
 
         Assertions.assertThrows(InValidTicketException.class, ()->robot.fetch(ticket));
     }
+
+    @Test
+    void should_return_exception_when_fetch_given_invalid_ticket() {
+        Robot robot = new Robot(2, 2);
+        Package expected = new Package();
+        Ticket ticket = robot.save(expected);
+
+        Assertions.assertThrows(InValidTicketException.class, ()->robot.fetch(new Ticket()));
+    }
 }
