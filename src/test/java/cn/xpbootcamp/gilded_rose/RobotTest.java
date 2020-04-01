@@ -23,4 +23,14 @@ public class RobotTest {
 
         Assertions.assertThrows(NoCapacityException.class, () -> robot.save(aPackage));
     }
+
+    @Test
+    void should_return_ticket_when_save_given_robot_has_two_lockers_with_capacity_of_0_2() {
+        Robot robot = new Robot(0, 2);
+        Package aPackage = new Package();
+
+        Ticket ticket = robot.save(aPackage);
+
+        Assertions.assertNotNull(ticket);
+    }
 }
