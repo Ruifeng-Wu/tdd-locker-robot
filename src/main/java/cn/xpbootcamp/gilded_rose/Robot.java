@@ -1,5 +1,7 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exception.NoCapacityException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +19,13 @@ public class Robot {
     public Ticket save(Package aPackage) {
         Ticket ticket = null;
         for (Locker locker : lockers) {
-            ticket = locker.save(aPackage);
+            try {
+                ticket = locker.save(aPackage);
+                return ticket;
+            } catch (NoCapacityException e) {
+                System.out.println(e);
+            }
         }
-        return ticket;
+        throw new NoCapacityException();
     }
 }
