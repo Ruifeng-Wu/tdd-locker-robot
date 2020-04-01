@@ -27,6 +27,6 @@
 
 5.Given 错误的票据, When 用户取件, Then 提示票据错误.
 
-6.Given 有空位的Robot(储物柜*0+储物柜*n)，When 用户取1件在1号柜的货物然后存，Then成功存在1号柜.
+6.Given 有空位的Robot(储物柜*1+储物柜*n)，When 用户取1件在1号柜的货物然后存，Then成功存在1号柜.
 
-7.Given 有空位的Robot(储物柜*0+储物柜*n)，When 用用户存货物，Then成功存在2号柜.
+7.Given 有空位的Robot(储物柜*0+储物柜*n)，When 用用户存货物，Then成功存并返回唯一的票据.
