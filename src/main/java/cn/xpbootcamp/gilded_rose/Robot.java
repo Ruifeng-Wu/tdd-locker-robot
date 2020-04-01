@@ -5,6 +5,7 @@ import cn.xpbootcamp.gilded_rose.exception.NoCapacityException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Robot {
     List<Locker> lockers;
@@ -12,7 +13,9 @@ public class Robot {
     public Robot(int... capacities) {
         lockers = new ArrayList<>();
         for (int capacity : capacities) {
-            lockers.add(new Locker(capacity));
+            Locker locker = new Locker(capacity);
+            locker.setId(String.valueOf(UUID.randomUUID()));
+            lockers.add(locker);
         }
     }
 
@@ -22,6 +25,7 @@ public class Robot {
         for (Locker locker : lockers) {
             try {
                 ticket = locker.save(aPackage);
+                ticket.setLockerId(locker.getId());
                 return ticket;
             } catch (NoCapacityException e) {
                 System.out.println(e);
@@ -32,7 +36,11 @@ public class Robot {
 
     public Package fetch(Ticket ticket) {
         for (Locker locker : lockers) {
-            return locker.fetch(ticket);
+            try {
+                return locker.fetch(ticket);
+            } catch (InValidTicketException e) {
+                System.out.println(e);
+            }
         }
         throw new InValidTicketException();
     }

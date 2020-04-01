@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Locker {
+    private String id;
     private int capacity;
     private Map<Ticket, Package> container = new HashMap<>();
 
@@ -35,5 +36,13 @@ public class Locker {
         Package aPackage = container.remove(ticket);
         capacity++;
         return aPackage;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

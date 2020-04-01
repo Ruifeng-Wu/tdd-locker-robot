@@ -55,7 +55,7 @@ public class RobotTest {
 
         robot.fetch(ticket);
 
-        Assertions.assertThrows(InValidTicketException.class, ()->robot.fetch(ticket));
+        Assertions.assertThrows(InValidTicketException.class, () -> robot.fetch(ticket));
     }
 
     @Test
@@ -64,6 +64,29 @@ public class RobotTest {
         Package expected = new Package();
         Ticket ticket = robot.save(expected);
 
-        Assertions.assertThrows(InValidTicketException.class, ()->robot.fetch(new Ticket()));
+        Assertions.assertThrows(InValidTicketException.class, () -> robot.fetch(new Ticket()));
+    }
+
+    @Test
+    void should_return_package_when_fetch_save_given_robot_has_two_lockers_with_capacity_of_0_2() {
+        Robot robot = new Robot(1, 2);
+        Package expected = new Package();
+        Ticket ticket = robot.save(expected);
+
+        robot.fetch(ticket);
+        Ticket result = robot.save(expected);
+
+        Assertions.assertSame(ticket.getLockerId(), result.getLockerId());
+    }
+
+    @Test
+    void should_return_package_when_fetch_given_robot_has_two_lockers_with_capacity_of_0_2() {
+        Robot robot = new Robot(0, 2);
+        Package expected = new Package();
+        Ticket ticket = robot.save(expected);
+
+        Package result = robot.fetch(ticket);
+
+        Assertions.assertSame(expected, result);
     }
 }
