@@ -1,5 +1,6 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
 import cn.xpbootcamp.gilded_rose.exception.NoCapacityException;
 
 import java.util.ArrayList;
@@ -27,5 +28,12 @@ public class Robot {
             }
         }
         throw new NoCapacityException();
+    }
+
+    public Package fetch(Ticket ticket) {
+        for (Locker locker : lockers) {
+            return locker.fetch(ticket);
+        }
+        throw new InValidTicketException();
     }
 }

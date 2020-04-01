@@ -33,4 +33,16 @@ public class RobotTest {
 
         Assertions.assertNotNull(ticket);
     }
+
+    @Test
+    void should_return_package_when_fetch_given_valid_ticket() {
+        Robot robot = new Robot(2, 2);
+        Package expected = new Package();
+        Ticket ticket = robot.save(expected);
+
+        Package result = robot.fetch(ticket);
+
+
+        Assertions.assertSame(expected, result);
+    }
 }
