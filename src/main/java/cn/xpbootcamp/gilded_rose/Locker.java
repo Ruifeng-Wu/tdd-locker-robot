@@ -45,4 +45,12 @@ public class Locker {
     public void setId(String id) {
         this.id = id;
     }
+
+    public boolean hasCapacity() {
+        return capacity > 0;
+    }
+
+    public boolean hasPackage(Ticket ticket) {
+        return container.containsKey(ticket);
+    }
 }

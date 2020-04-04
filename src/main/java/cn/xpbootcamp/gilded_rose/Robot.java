@@ -21,27 +21,18 @@ public class Robot {
 
 
     public Ticket save(Package aPackage) {
-        Ticket ticket = null;
-        for (Locker locker : lockers) {
-            try {
-                ticket = locker.save(aPackage);
-                ticket.setLockerId(locker.getId());
-                return ticket;
-            } catch (NoCapacityException e) {
-                System.out.println(e);
-            }
-        }
-        throw new NoCapacityException();
+        return lockers.stream()
+                .filter(Locker::hasCapacity)
+                .findFirst()
+                .orElseThrow(NoCapacityException::new)
+                .save(aPackage);
     }
 
     public Package fetch(Ticket ticket) {
-        for (Locker locker : lockers) {
-            try {
-                return locker.fetch(ticket);
-            } catch (InValidTicketException e) {
-                System.out.println(e);
-            }
-        }
-        throw new InValidTicketException();
+        return lockers.stream()
+                .filter(locker -> locker.hasPackage(ticket))
+                .findFirst()
+                .orElseThrow(InValidTicketException::new)
+                .fetch(ticket);
     }
 }
