@@ -24,6 +24,7 @@ public class Locker {
             throw new NoCapacityException();
         }
         Ticket ticket = new Ticket();
+        ticket.setLockerId(id);
         container.put(ticket, aPackage);
         capacity--;
         return ticket;
@@ -36,6 +37,10 @@ public class Locker {
         Package aPackage = container.remove(ticket);
         capacity++;
         return aPackage;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     public String getId() {

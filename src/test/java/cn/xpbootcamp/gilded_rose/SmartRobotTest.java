@@ -66,4 +66,16 @@ public class SmartRobotTest {
 
         Assertions.assertThrows(InValidTicketException.class, () -> smartRobot.fetch(new Ticket()));
     }
+
+    @Test
+    void should_save_two_package_in_same_locker_when_fetch_save_given_robot_has_two_lockers_with_capacity_of_1_3() {
+        SmartRobot smartRobot = new SmartRobot(1, 3);
+        Package aPackage = new Package();
+        Ticket ticket = smartRobot.save(aPackage);
+
+        Package otherPackage = new Package();
+        Ticket result = smartRobot.save(otherPackage);
+
+        Assertions.assertSame(ticket.getLockerId(), result.getLockerId());
+    }
 }
