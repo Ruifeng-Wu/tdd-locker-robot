@@ -1,5 +1,6 @@
 package cn.xpbootcamp.gilded_rose;
 
+import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
 import cn.xpbootcamp.gilded_rose.exception.NoCapacityException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,17 @@ public class SmartRobotTest {
 
 
         Assertions.assertSame(expected, result);
+    }
+
+    @Test
+    void should_return_exception_when_double_fetch_given_used_ticket() {
+        SmartRobot smartRobot = new SmartRobot(2, 2);
+        Package expected = new Package();
+        Ticket ticket = smartRobot.save(expected);
+
+        smartRobot.fetch(ticket);
+
+        Assertions.assertThrows(InValidTicketException.class, () -> smartRobot.fetch(ticket));
     }
 
 }
