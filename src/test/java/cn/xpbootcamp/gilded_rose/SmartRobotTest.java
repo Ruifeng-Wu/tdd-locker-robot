@@ -58,4 +58,12 @@ public class SmartRobotTest {
         Assertions.assertThrows(InValidTicketException.class, () -> smartRobot.fetch(ticket));
     }
 
+    @Test
+    void should_return_exception_when_fetch_given_invalid_ticket() {
+        SmartRobot smartRobot = new SmartRobot(2, 2);
+        Package expected = new Package();
+        Ticket ticket = smartRobot.save(expected);
+
+        Assertions.assertThrows(InValidTicketException.class, () -> smartRobot.fetch(new Ticket()));
+    }
 }
