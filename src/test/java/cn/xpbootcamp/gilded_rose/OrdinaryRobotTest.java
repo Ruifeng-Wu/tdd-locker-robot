@@ -5,43 +5,43 @@ import cn.xpbootcamp.gilded_rose.exception.NoCapacityException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class RobotTest {
+public class OrdinaryRobotTest {
 
     @Test
     void should_return_ticket_when_save_given_robot_has_two_lockers_with_capacity_of_2_2() {
-        Robot robot = new Robot(2, 2);
+        OrdinaryRobot ordinaryRobot = new OrdinaryRobot(2, 2);
         Package aPackage = new Package();
 
-        Ticket ticket = robot.save(aPackage);
+        Ticket ticket = ordinaryRobot.save(aPackage);
 
         Assertions.assertNotNull(ticket);
     }
 
     @Test
     void should_return_exception_when_save_given_robot_has_two_lockers_with_capacity_of_0_0() {
-        Robot robot = new Robot(0, 0);
+        OrdinaryRobot ordinaryRobot = new OrdinaryRobot(0, 0);
         Package aPackage = new Package();
 
-        Assertions.assertThrows(NoCapacityException.class, () -> robot.save(aPackage));
+        Assertions.assertThrows(NoCapacityException.class, () -> ordinaryRobot.save(aPackage));
     }
 
     @Test
     void should_return_ticket_when_save_given_robot_has_two_lockers_with_capacity_of_0_2() {
-        Robot robot = new Robot(0, 2);
+        OrdinaryRobot ordinaryRobot = new OrdinaryRobot(0, 2);
         Package aPackage = new Package();
 
-        Ticket ticket = robot.save(aPackage);
+        Ticket ticket = ordinaryRobot.save(aPackage);
 
         Assertions.assertNotNull(ticket);
     }
 
     @Test
     void should_return_package_when_fetch_given_valid_ticket() {
-        Robot robot = new Robot(2, 2);
+        OrdinaryRobot ordinaryRobot = new OrdinaryRobot(2, 2);
         Package expected = new Package();
-        Ticket ticket = robot.save(expected);
+        Ticket ticket = ordinaryRobot.save(expected);
 
-        Package result = robot.fetch(ticket);
+        Package result = ordinaryRobot.fetch(ticket);
 
 
         Assertions.assertSame(expected, result);
@@ -49,43 +49,43 @@ public class RobotTest {
 
     @Test
     void should_return_exception_when_double_fetch_given_used_ticket() {
-        Robot robot = new Robot(2, 2);
+        OrdinaryRobot ordinaryRobot = new OrdinaryRobot(2, 2);
         Package expected = new Package();
-        Ticket ticket = robot.save(expected);
+        Ticket ticket = ordinaryRobot.save(expected);
 
-        robot.fetch(ticket);
+        ordinaryRobot.fetch(ticket);
 
-        Assertions.assertThrows(InValidTicketException.class, () -> robot.fetch(ticket));
+        Assertions.assertThrows(InValidTicketException.class, () -> ordinaryRobot.fetch(ticket));
     }
 
     @Test
     void should_return_exception_when_fetch_given_invalid_ticket() {
-        Robot robot = new Robot(2, 2);
+        OrdinaryRobot ordinaryRobot = new OrdinaryRobot(2, 2);
         Package expected = new Package();
-        Ticket ticket = robot.save(expected);
+        Ticket ticket = ordinaryRobot.save(expected);
 
-        Assertions.assertThrows(InValidTicketException.class, () -> robot.fetch(new Ticket()));
+        Assertions.assertThrows(InValidTicketException.class, () -> ordinaryRobot.fetch(new Ticket()));
     }
 
     @Test
     void should_return_package_when_fetch_save_given_robot_has_two_lockers_with_capacity_of_0_2() {
-        Robot robot = new Robot(1, 2);
+        OrdinaryRobot ordinaryRobot = new OrdinaryRobot(1, 2);
         Package expected = new Package();
-        Ticket ticket = robot.save(expected);
+        Ticket ticket = ordinaryRobot.save(expected);
 
-        robot.fetch(ticket);
-        Ticket result = robot.save(expected);
+        ordinaryRobot.fetch(ticket);
+        Ticket result = ordinaryRobot.save(expected);
 
         Assertions.assertSame(ticket.getLockerId(), result.getLockerId());
     }
 
     @Test
     void should_return_package_when_fetch_given_robot_has_two_lockers_with_capacity_of_0_2() {
-        Robot robot = new Robot(0, 2);
+        OrdinaryRobot ordinaryRobot = new OrdinaryRobot(0, 2);
         Package expected = new Package();
-        Ticket ticket = robot.save(expected);
+        Ticket ticket = ordinaryRobot.save(expected);
 
-        Package result = robot.fetch(ticket);
+        Package result = ordinaryRobot.fetch(ticket);
 
         Assertions.assertSame(expected, result);
     }

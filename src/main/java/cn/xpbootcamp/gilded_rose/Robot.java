@@ -1,13 +1,12 @@
 package cn.xpbootcamp.gilded_rose;
 
 import cn.xpbootcamp.gilded_rose.exception.InValidTicketException;
-import cn.xpbootcamp.gilded_rose.exception.NoCapacityException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Robot {
+public abstract class Robot {
     List<Locker> lockers;
 
     public Robot(int... capacities) {
@@ -19,15 +18,6 @@ public class Robot {
         }
     }
 
-
-    public Ticket save(Package aPackage) {
-        return lockers.stream()
-                .filter(Locker::hasCapacity)
-                .findFirst()
-                .orElseThrow(NoCapacityException::new)
-                .save(aPackage);
-    }
-
     public Package fetch(Ticket ticket) {
         return lockers.stream()
                 .filter(locker -> locker.hasPackage(ticket))
@@ -35,4 +25,6 @@ public class Robot {
                 .orElseThrow(InValidTicketException::new)
                 .fetch(ticket);
     }
+
+    public abstract Ticket save(Package aPackage);
 }

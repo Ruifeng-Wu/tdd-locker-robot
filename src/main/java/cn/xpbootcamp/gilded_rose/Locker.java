@@ -12,9 +12,6 @@ public class Locker {
     private int capacity;
     private Map<Ticket, Package> container = new HashMap<>();
 
-    public Locker() {
-    }
-
     public Locker(int capacity) {
         this.capacity = capacity;
     }
