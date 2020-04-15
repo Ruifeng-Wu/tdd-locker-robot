@@ -2,8 +2,8 @@ package cn.xpbootcamp.gilded_rose;
 
 import java.util.Comparator;
 
-public class SmartOrdinaryRobot extends Robot {
-    public SmartOrdinaryRobot(int... capacities) {
+public class SmartRobot extends Robot {
+    public SmartRobot(int... capacities) {
         super(capacities);
     }
 
